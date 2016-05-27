@@ -18,7 +18,7 @@ lower_body = {
 	"Quadriceps" : ["Barbell Squats", "Leg Press", "Leg Extensions"],
 	"Hamstrings" : ["Dumbell Lunges", "Straight-leg Deadlifts", "Lying Leg Curls"],
 	"Calves" :["Seated Calf Raises", "Standing Heel Raises"],
-	"Abs" : ["Floor Crunches", "Oblique Floor Crunches", "Decline Crunches", "Decline Oblique", "Hanging Knee Raises", "Reverse Crunches", "Cable Crunches", "Cable Oblique Crunches"]
+	"Abs" : ["Floor Crunches", "Oblique Floor Crunches", "Decline Crunches", "Decline Oblique", "Hanging Knee Raises", "Reverse Crunches", "Cable Crunches", "Cable Oblique Crunches", "Landmines"]
 }
 
 def welcome():
@@ -38,7 +38,7 @@ def start_generator():
 		print "Complete your workout first. "
 		start = False 
 	while start:
-		user_choice = raw_input("Enter U for Upper body, L for Leg Day, or V to view your workout log: ")
+		user_choice = raw_input("Enter U for Upper body, L for Leg Day, or V to view your workout log, X to exit: ")
 		user_choice = user_choice.upper()
 		if user_choice == "U":
 			workout_generator(upper_body)			
@@ -48,7 +48,9 @@ def start_generator():
 			with open('list1.csv', 'r') as csvfile:
 				v = csv.reader(csvfile)
 				for row in v:
-					print row	
+					print row
+		elif user_choice == "X":
+			start = False	
 		else:
 			print "Invalid choice"	
 
@@ -60,8 +62,10 @@ def workout_generator(list_workouts):
 	for area in list_workouts.values():
 		generate = randint(0,len(area)-1)
 		w = area[generate]
-		i.append(w)
-		print w
+		nex = randint(0,generate)
+		x = area[nex]
+		i.append(w +x)
+		print w + x
 	with open('list1.csv', 'a') as csvfile:
 		v = csv.writer(csvfile)
 		v.writerow(i)
